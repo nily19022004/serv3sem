@@ -29,9 +29,20 @@
                         <li class="nav-item">
                             <a class="nav-link" href="contact">Контакты</a>
                         </li>
+
                     </ul>
+
+                </div>
+                <div class="navbar-nav d-flex justify-content-end">
+                    <div class="nav-item">
+                        <a class="nav-link" href="/signup">Регистрация</a>
+                    </div>
+                    <div class="nav-item">
+                        <a class="nav-link" href="/auth/login">Войти</a>
+                    </div>
                 </div>
             </div>
+
         </nav>
     </header>
     <main class="flex-grow-1">

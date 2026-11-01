@@ -4,13 +4,13 @@
         Контакты
     </h3>
     <p>
-        Name: {{$contact['name'] }}
+        Имя: {{$contact['name'] }}
     </p>
     <p>
-        Adres: {{$contact['adres'] }}
+        Адрес: {{$contact['adres'] }}
     </p>
     <p>
-        Phone: {{$contact['phone'] }}
+        Телефон: {{$contact['phone'] }}
     </p>
     <p>
         Email: {{$contact['email'] }}
