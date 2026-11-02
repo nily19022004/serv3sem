@@ -3,10 +3,10 @@
     <table class="table">
   <thead>
     <tr>
-      <th scope="col">Date</th>
-      <th scope="col">Name</th>
-      <th scope="col">Desc</th>
-      <th scope="col">Image</th>
+      <th scope="col">Дата</th>
+      <th scope="col">Имя</th>
+      <th scope="col">Описание</th>
+      <th scope="col">Фото</th>
     </tr>
   </thead>
   <tbody>
