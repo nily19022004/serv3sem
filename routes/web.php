@@ -5,7 +5,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AuthController;
 
-Route::get('article/show', [ArticleController::class,'index']);
+Route::resource('article', ArticleController::class);
+
+// Route::group(['prefix'=> '/article', 'middleware' => 'auth'], function(){
+//     Route::get('', [ArticleController::class,'index']);
+//     Route::get('/create', [ArticleController::class,'create']);
+//     Route::get('store', [ArticleController::class,'store']);
+// });
+
 
 Route::get('/signup', [AuthController::class,'create']);
 Route::post('/auth/login', [AuthController::class,'signUp']);

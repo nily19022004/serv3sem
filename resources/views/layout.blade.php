@@ -10,6 +10,16 @@
     <!-- Bootstrap CSS v5.3.8 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+
+    <style>
+        /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+    </style>    
+    
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+        }
+    </style>    
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -30,7 +40,10 @@
                             <a class="nav-link" href="contact">Контакты</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/article/show">Статьи</a>
+                            <a class="nav-link" href="/article">Статьи</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/article/create">Создать статью</a>
                         </li>
 
                     </ul>
