@@ -1,6 +1,6 @@
 @extends('layout')
 @section('content')
-    <form action="auth/login" method="post">
+    <form action="/auth/signUp" method="post">
         @csrf
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Имя</label>

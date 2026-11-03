@@ -34,10 +34,10 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="about">О нас</a>
+                            <a class="nav-link" href="/about">О нас</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contact">Контакты</a>
+                            <a class="nav-link" href="/contact">Контакты</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/article">Статьи</a>
@@ -50,12 +50,19 @@
 
                 </div>
                 <div class="navbar-nav d-flex justify-content-end">
+                    @guest
                     <div class="nav-item">
-                        <a class="nav-link" href="/signup">Регистрация</a>
+                        <a class="nav-link" href="/auth/create">Регистрация</a>
                     </div>
                     <div class="nav-item">
                         <a class="nav-link" href="/auth/login">Войти</a>
                     </div>
+                    @endguest
+                    @auth
+                    <div class="nav-item">
+                        <a class="nav-link" href="/auth/logout">Выход</a>
+                    </div>
+                    @endauth
                 </div>
             </div>
 
