@@ -39,13 +39,16 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/contact">Контакты</a>
                         </li>
+                        @auth
                         <li class="nav-item">
                             <a class="nav-link" href="/article">Статьи</a>
                         </li>
+                        @endauth
+                        @can('article')
                         <li class="nav-item">
                             <a class="nav-link" href="/article/create">Создать статью</a>
                         </li>
-
+                        @endcan
                     </ul>
 
                 </div>

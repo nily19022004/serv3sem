@@ -7,28 +7,23 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
+        $this->authorize('viewAny', Article::class);
         $articles = Article::latest()->paginate(5);
         return view('articles.index', ['articles' => $articles]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
+        $this->authorize('create', Article::class);
         return view('articles/create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
+        $this->authorize('create', Article::class);
+
         $request->validate([
             'datePublic' => 'required',
             'title' => 'required',
@@ -40,30 +35,26 @@ class ArticleController extends Controller
         $article->title = $request->title;
         $article->desc = $request->desc;
         $article->save();
+
         return redirect(route('article.index'));
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Article $article)
     {
+        $this->authorize('view', $article);
         return view('articles/show', ['article' => $article]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Article $article)
     {
+        $this->authorize('update', $article);
         return view('articles/edit', ['article' => $article]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Article $article)
     {
+        $this->authorize('update', $article);
+
         $request->validate([
             'datePublic' => 'required',
             'title' => 'required',
@@ -74,14 +65,13 @@ class ArticleController extends Controller
         $article->title = $request->title;
         $article->desc = $request->desc;
         $article->save();
+
         return redirect(route('article.show', ['article' => $article->id]));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Article $article)
     {
+        $this->authorize('delete', $article);
         $article->delete();
         return redirect()->route('article.index');
     }
