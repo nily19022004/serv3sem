@@ -6,6 +6,7 @@ use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ArticleMail;
+use App\Jobs\VeryLongJob;
 
 class ArticleController extends Controller
 {
@@ -37,7 +38,7 @@ class ArticleController extends Controller
         $article->title = $request->title;
         $article->desc = $request->desc;
         $result = $article->save();
-        if ($result) Mail::send(new ArticleMail($article));
+        if ($result) VeryLongJob::dispatch($article);
         return redirect(route('article.index'));
     }
 
