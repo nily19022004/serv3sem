@@ -9,4 +9,8 @@ class Article extends Model
 {
     /** @use HasFactory<\Database\Factories\ArticleFactory> */
     use HasFactory;
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
