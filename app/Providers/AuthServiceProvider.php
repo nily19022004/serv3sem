@@ -47,5 +47,23 @@ class AuthServiceProvider extends ServiceProvider
                 ? Response::allow()
                 : Response::deny('Вы не являетесь модератором');
         });
+
+        // Просмотр статей и добавление комментариев — любому авторизованному
+        Gate::define('viewArticles', function (User $user) {
+            return true;
+        });
+
+        Gate::define('createComment', function (User $user) {
+            return true;
+        });
+
+        // Редактирование/удаление комментария — автор или модератор
+        Gate::define('updateComment', function (User $user, \App\Models\Comment $comment) {
+            return $user->id === $comment->user_id || $user->role_id == 1;
+        });
+
+        Gate::define('deleteComment', function (User $user, \App\Models\Comment $comment) {
+            return $user->id === $comment->user_id || $user->role_id == 1;
+        });
     }
 }

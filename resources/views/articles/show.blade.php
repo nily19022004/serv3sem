@@ -24,17 +24,28 @@
         <div class="card mb-2" style="width: 38rem;">
             <div class="card-body">
                 <p class="card-text">{{ $comment->body }}</p>
-                <a href="/comment/{{ $comment->id }}/edit" class="btn btn-link">Редактировать</a>
-                <form action="/comment/{{ $comment->id }}" method="post" style="display:inline">
-                    @method('DELETE')
-                    @csrf
-                    <button class="btn btn-link" type="submit">Удалить</button>
-                </form>
+                <p class="text-muted mb-1">
+                    Автор: {{ $comment->user->name ?? 'Неизвестен' }}
+                </p>
+
+                @can('updateComment', $comment)
+                    <a href="/comment/{{ $comment->id }}/edit" class="btn btn-link">Редактировать</a>
+                @endcan
+
+                @can('deleteComment', $comment)
+                    <form action="/comment/{{ $comment->id }}" method="post" style="display:inline">
+                        @method('DELETE')
+                        @csrf
+                        <button class="btn btn-link" type="submit">Удалить</button>
+                    </form>
+                @endcan
             </div>
         </div>
     @empty
         <p>Комментариев пока нет.</p>
     @endforelse
 
-    <a href="/comment/create?article_id={{ $article->id }}" class="btn btn-primary mt-3">Добавить комментарий</a>
+    @can('createComment')
+        <a href="/comment/create?article_id={{ $article->id }}" class="btn btn-primary mt-3">Добавить комментарий</a>
+    @endcan
 @endsection
