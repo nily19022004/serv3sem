@@ -2,6 +2,7 @@
 <html lang="en" data-bs-theme="light">
 
 <head>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>Title</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
@@ -23,6 +24,7 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
+    <div id="app"></div>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">

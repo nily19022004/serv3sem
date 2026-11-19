@@ -38,7 +38,10 @@ class ArticleController extends Controller
         $article->title = $request->title;
         $article->desc = $request->desc;
         $result = $article->save();
-        if ($result) VeryLongJob::dispatch($article);
+        if ($result) {
+            VeryLongJob::dispatch($article);
+            \App\Events\NewArticleEvent::dispatch($article);
+        }
         return redirect(route('article.index'));
     }
 
