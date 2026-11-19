@@ -39,9 +39,12 @@ class CommentController extends Controller
             'body' => $request->body,
             'article_id' => $request->article_id,
             'user_id' => Auth::id(),
+            'is_approved' => false,
         ]);
 
-        return redirect()->route('article.show', $request->article_id);
+        return redirect()
+            ->route('article.show', $request->article_id)
+            ->with('status', 'Комментарий отправлен на модерацию.');
     }
 
     public function show(Comment $comment)
@@ -81,4 +84,24 @@ class CommentController extends Controller
 
         return redirect()->route('article.show', $articleId);
     }
+
+    public function pending()
+    {
+        Gate::authorize('moderateComments');
+
+        $comments = Comment::where('is_approved', false)->latest()->paginate(10);
+
+        return view('comments.pending', ['comments' => $comments]);
+    }
+    public function approve(Comment $comment)
+    {
+        Gate::authorize('moderateComments');
+
+        $comment->is_approved = true;
+        $comment->save();
+
+        return redirect()->route('comment.pending');
+    }
+
+
 }

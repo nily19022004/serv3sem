@@ -65,5 +65,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('deleteComment', function (User $user, \App\Models\Comment $comment) {
             return $user->id === $comment->user_id || $user->role_id == 1;
         });
+
+        Gate::define('moderateComments', function (User $user) {
+            return $user->role_id == 1;
+        });
     }
 }

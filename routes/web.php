@@ -20,6 +20,11 @@ Route::post('/auth/signUp', [AuthController::class,'signUp']);
 Route::get('/auth/login', [AuthController::class,'login'])->name('login');
 Route::post('/auth/signIn', [AuthController::class,'customlogin']);
 Route::get('/auth/logout', [AuthController::class,'logout']);
+
+Route::get('/comment/pending',         [CommentController::class, 'pending'])->name('comment.pending')->middleware('auth:sanctum');
+Route::post('/comment/{comment}/approve', [CommentController::class, 'approve'])->name('comment.approve')->middleware('auth:sanctum');
+Route::post('/comment/{comment}/reject',  [CommentController::class, 'reject'])->name('comment.reject')->middleware('auth:sanctum');
+
 Route::resource('comment', CommentController::class)->middleware('auth:sanctum');
 
 

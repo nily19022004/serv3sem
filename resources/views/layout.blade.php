@@ -13,13 +13,13 @@
 
     <style>
         /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
-    </style>    
-    
+    </style>
+
     <style>
         body {
             font-family: 'Nunito', sans-serif;
         }
-    </style>    
+    </style>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -42,27 +42,32 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/article">Статьи</a>
                         </li>
+                        @can('moderateComments')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('comment.pending') }}">Модерация</a>
+                            </li>
+                        @endcan
                         @can('article')
-                        <li class="nav-item">
-                            <a class="nav-link" href="/article/create">Создать статью</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/article/create">Создать статью</a>
+                            </li>
                         @endcan
                     </ul>
 
                 </div>
                 <div class="navbar-nav d-flex justify-content-end">
                     @guest
-                    <div class="nav-item">
-                        <a class="nav-link" href="/auth/create">Регистрация</a>
-                    </div>
-                    <div class="nav-item">
-                        <a class="nav-link" href="/auth/login">Войти</a>
-                    </div>
+                        <div class="nav-item">
+                            <a class="nav-link" href="/auth/create">Регистрация</a>
+                        </div>
+                        <div class="nav-item">
+                            <a class="nav-link" href="/auth/login">Войти</a>
+                        </div>
                     @endguest
                     @auth
-                    <div class="nav-item">
-                        <a class="nav-link" href="/auth/logout">Выход</a>
-                    </div>
+                        <div class="nav-item">
+                            <a class="nav-link" href="/auth/logout">Выход</a>
+                        </div>
                     @endauth
                 </div>
             </div>

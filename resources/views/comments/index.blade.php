@@ -17,6 +17,7 @@
                     <td>{{ $comment->body }}</td>
                     <td>{{ $comment->user->name ?? '—' }}</td>
                     <td>{{ $comment->article->title ?? '—' }}</td>
+                    <td>{{ $comment->is_approved ? 'Одобрен' : 'На модерации' }}</td>
                     <td>
                         @can('updateComment', $comment)
                             <a href="/comment/{{ $comment->id }}/edit" class="btn btn-link">Редактировать</a>

@@ -19,8 +19,11 @@
     <hr>
 
     <h4>Комментарии</h4>
+    @if (session('status'))
+        <div class="alert alert-info">{{ session('status') }}</div>
+    @endif
 
-    @forelse ($article->comments as $comment)
+    @forelse ($article->comments->where('is_approved', true) as $comment)
         <div class="card mb-2" style="width: 38rem;">
             <div class="card-body">
                 <p class="card-text">{{ $comment->body }}</p>

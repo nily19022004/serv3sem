@@ -13,6 +13,11 @@ class Comment extends Model
         'body',
         'article_id',
         'user_id',
+        'is_approved',
+    ];
+
+    protected $casts = [
+        'is_approved' => 'boolean',
     ];
 
     public function article()
