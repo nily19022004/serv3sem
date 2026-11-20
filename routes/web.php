@@ -44,3 +44,7 @@ Route::get('/contact', function(){
     ];
     return view('main/contact', ['contact' => $contact]);
 });
+
+Route::get('/notification/{notification}', [App\Http\Controllers\ArticleController::class, 'readNotification'])
+    ->name('notification.read')
+    ->middleware('auth');

@@ -67,6 +67,33 @@
                         </div>
                     @endguest
                     @auth
+                        <!-- Блок уведомлений -->
+                        @php
+                            // Берем только непрочитанные уведомления текущего пользователя
+                            $notifications = auth()->user()->unreadNotifications;
+                        @endphp
+
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Уведомления
+                                @if($notifications->count() > 0)
+                                    <span class="badge bg-danger">{{ $notifications->count() }}</span>
+                                @endif
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                @forelse($notifications as $notification)
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('notification.read', $notification->id) }}">
+                                            {{ $notification->data['title'] }}
+                                        </a>
+                                    </li>
+                                @empty
+                                    <li><span class="dropdown-item text-muted">Нет новых уведомлений</span></li>
+                                @endforelse
+                            </ul>
+                        </div>
+
                         <div class="nav-item">
                             <a class="nav-link" href="/auth/logout">Выход</a>
                         </div>

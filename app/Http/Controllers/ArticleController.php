@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ArticleMail;
 use App\Jobs\VeryLongJob;
+use App\Models\User;
+use App\Notifications\NewArticleNotification;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 class ArticleController extends Controller
 {
@@ -38,10 +42,24 @@ class ArticleController extends Controller
         $article->title = $request->title;
         $article->desc = $request->desc;
         $result = $article->save();
+
         if ($result) {
             VeryLongJob::dispatch($article);
-            \App\Events\NewArticleEvent::dispatch($article);
+
+            // --- НОВЫЙ КОД ---
+            // Ищем всех читателей (role_id = 2)
+            $readers = User::where('role_id', 2)->get();
+
+            // Исключаем текущего пользователя (если он вдруг читатель, но сейчас на сайте)
+            $readers = $readers->reject(function ($user) {
+                return Auth::check() && Auth::id() === $user->id;
+            });
+
+            // Отправляем уведомление
+            Notification::send($readers, new NewArticleNotification($article));
+            // -----------------
         }
+
         return redirect(route('article.index'));
     }
 
@@ -80,5 +98,20 @@ class ArticleController extends Controller
         $this->authorize('delete', $article);
         $article->delete();
         return redirect()->route('article.index');
+    }
+
+    public function readNotification($notificationId)
+    {
+        // Находим уведомление текущего пользователя по ID
+        $notification = Auth::user()->notifications()->findOrFail($notificationId);
+
+        // Отмечаем как прочитанное
+        $notification->markAsRead();
+
+        // Достаем ID статьи из данных уведомления
+        $articleId = $notification->data['article_id'];
+
+        // Редиректим на просмотр этой статьи
+        return redirect()->route('article.show', $articleId);
     }
 }
